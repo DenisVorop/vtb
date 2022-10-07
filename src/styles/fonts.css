@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "Furore";
+    src: url('../assets/fonts/Furore.otf');
+    src: url('../assets/fonts/Furore.ttf') format("truetype"),
+        url('../assets/fonts/Furore.otf');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Plex sans';
+    src: url('../assets/fonts/IBMPlexSans-Regular.ttf') format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}

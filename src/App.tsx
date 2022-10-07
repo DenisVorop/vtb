@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
-function App() {
+// import PrivateRoute from './hocs/private-route'
+
+import { pages } from './pages'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Routes>
+      {pages.map((el: { path: string, element: React.ReactNode }, idx: number) => (
+        <Route
+          key={idx}
+          path={el.path}
+          // element={<PrivateRoute>{el.element}</PrivateRoute>}
+          element={el.element}
+        />
+      ))}
+    </Routes>
+  )
 }
 
-export default App;
+export default React.memo(App)
