@@ -19,12 +19,14 @@ const Icon = styled.div`
     font-size: 14px;
     width: 40px;
     height: 40px;
+
 `
 
 const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 1 1 auto;
 `
 
 const Info = styled.div`
