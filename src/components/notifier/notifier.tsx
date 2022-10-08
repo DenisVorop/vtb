@@ -9,11 +9,11 @@ const ToastContainer = styled.div<IToastContainer>`
     position: relative;
     backdrop-filter: blur(12px);
     border-radius: 8px;
-    color: ${props => props.theme.color.light_gray};
-    border: ${props => `1px solid ${props.type === 'success' ? '#22ee22aa' : (props.type === 'danger') ? '#ee2222aa' : props.theme.color.light_gray}`};
-    background-color: ${props => props.type === 'success' ? '#acfecdaa' : (props.type === 'danger') ? '#f4ecfdaa' : '#ECF4FDAA'};
+    color: ${({ theme }) => theme.color.bg};
+    border: ${({type, theme}) => `1px solid ${type === 'success' ? theme.color.light_gray : (type === 'danger') ? theme.color.red : theme.color.light_gray}`};
+    background-color: ${({type, theme}) => type === 'success' ? theme.color_opacity.light_gray_80 : (type === 'danger') ? theme.color_opacity.red_80 : theme.color_opacity.light_gray_80};
     & > div {
-        padding: 2rem 3rem;
+        padding: 1rem;
     }
 `
 
@@ -76,7 +76,7 @@ const ToastList = styled.ul`
     position: fixed;
     bottom: 0;
     z-index: 99999999999;
-    left: 50%;
+    left: 10%;
     transform: translate(-50%);
     li {
         margin: 0;

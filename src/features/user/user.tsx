@@ -14,7 +14,7 @@ const Icon = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: yellow;
+    background-color: ${({ theme }) => theme.color.ultramarine};
     color: ${({ theme }) => theme.color.bg};
     font-size: 14px;
     width: 40px;

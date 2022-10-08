@@ -8,28 +8,28 @@ const data = [
     {
         name: 'Page A',
         uv: 4000,
-        pv: 1,
+        pv: 5,
         amt: 2400,
         day: 'пн',
     },
     {
         name: 'Page B',
         uv: 3000,
-        pv: 2,
+        pv: 10,
         amt: 2210,
         day: 'вт',
     },
     {
         name: 'Page C',
         uv: 2000,
-        pv: 3,
+        pv: 13,
         amt: 2290,
         day: 'ср',
     },
     {
         name: 'Page D',
         uv: 2780,
-        pv: 4,
+        pv: 19,
         amt: 2000,
         day: 'чт',
     },
@@ -43,14 +43,14 @@ const data = [
     {
         name: 'Page F',
         uv: 2390,
-        pv: 6,
+        pv: 9,
         amt: 2500,
         day: 'сб',
     },
     {
         name: 'Page G',
         uv: 3490,
-        pv: 7,
+        pv: 17,
         amt: 2100,
         day: 'вс',
     },
@@ -80,7 +80,7 @@ const Chart: React.FC<IChartProps> = ({
         >
             <XAxis dataKey="day" scale="point" padding={{ left: 16, right: 16 }} tickLine={false} />
             <YAxis tickLine={false} />
-            <Tooltip />
+            {/*<Tooltip />*/}
             <CartesianGrid strokeDasharray="3 3" stroke="none" />
             <Bar dataKey="pv" fill={Theme.color.ultramarine} isAnimationActive={false} />
         </BarChart>
