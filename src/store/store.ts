@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { authApi } from '../services/auth/auth'
 import { usersApi } from '../services/user/user'
 
+import { eventsApi } from './../services/events/events'
 import { transactionsApi } from './../services/transactions/transactions'
 
 import baseSlice from './slices/base-slice'
@@ -14,11 +15,13 @@ const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [usersApi.reducerPath]: usersApi.reducer,
         [transactionsApi.reducerPath]: transactionsApi.reducer,
+        [eventsApi.reducerPath]: eventsApi.reducer,
     },
     middleware: (gDM) => gDM().concat([
         authApi.middleware,
         usersApi.middleware,
         transactionsApi.middleware,
+        eventsApi.middleware,
     ]),
 })
 export default store

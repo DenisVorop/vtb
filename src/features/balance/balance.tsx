@@ -5,6 +5,7 @@ import { Exchange } from '../../assets/images/_images'
 
 import BalanceCard from '../../components/balance-card/balance-card'
 import Button from '../../components/button/button'
+import { TUserBalance } from '../../types/types'
 
 import { buttonVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
@@ -25,12 +26,14 @@ const BtnContent = styled.div`
     gap: 8px;
 `
 
-interface IBalanceProps { }
+interface IBalanceProps {
+    balance: TUserBalance
+}
 
-const Balance: React.FC<IBalanceProps> = () => {
+const Balance: React.FC<IBalanceProps> = ({ balance }) => {
     return (
         <Wrapper>
-            <BalanceCard  />
+            <BalanceCard balance={balance} />
             <Button variant={buttonVariant.PRIMARY}>
                 <BtnContent>
                     <div>Обменять</div>

@@ -17,8 +17,9 @@ import Popup from '../../components/popup/popup'
 import InputWithLabel from '../../components/input-with-label/input-with-label'
 
 import { useAppSelector } from '../../hooks/redux'
-import { useGetUserQuery } from '../../services/user/user'
+import { useGetUserBalanceQuery, useGetUserQuery } from '../../services/user/user'
 import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
+import { TUserBalance } from '../../types/types'
 
 
 const Wrapper = styled.div`
@@ -50,6 +51,7 @@ const Profile: React.FC<IProfileProps> = () => {
     const { user } = useAppSelector(state => state.base)
     const { data: userInfo } = useGetUserQuery(id)
     const { data: transactions } = useGetUserTransactionsQuery(id ? id : user.user_id)
+    const { data: balance } = useGetUserBalanceQuery(id ? id : user.user_id)
 
     const [isVisiblePopup, setIsVisiblePopup] = React.useState<boolean>(false)
     const [createTransferFields, setCreateTransferFields] = React.useState<{
@@ -97,7 +99,7 @@ const Profile: React.FC<IProfileProps> = () => {
                                 Отправить благодарность
                             </Button>
                         </User>
-                        <BalanceCard isRow />
+                        <BalanceCard isRow balance={balance ? balance : {} as TUserBalance} />
                         <Contacts contacts={contacts} />
                     </Row>
                     <Row>

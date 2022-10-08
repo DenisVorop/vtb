@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 import { Theme } from '../../styles/theme'
+import { TUserBalance } from '../../types/types'
 import { titleVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
+
 import Coin from '../coin/coin'
 import NFT from '../coin/nft'
-
 import Title from '../title/title'
 
 const Wrapper = styled.div`
@@ -38,26 +39,24 @@ const Balance = styled.div`
     gap: 12px;
 `
 
-const balances = [
-    { name: 'coins', balance: 1200 },
-    { name: 'nft', balance: 5 },
-]
-
 interface IBalanceCardProps {
     isRow?: boolean
+    balance: TUserBalance
 }
 
-const BalanceCard: React.FC<IBalanceCardProps> = ({ isRow }) => {
+const BalanceCard: React.FC<IBalanceCardProps> = ({ isRow, balance }) => {
     return (
         <Wrapper>
             <Title color={Theme.color_opacity.bg_60} variant={titleVariant.H6}>Баланс</Title>
             <Content isRow={isRow}>
-                {balances.map((item, index: number) => (
-                    <Balance key={item.name}>
-                        {!index ? <Coin w="32px" h="32px" /> : <NFT w="32px" h="32px" />}
-                        <Title color={Theme.color.bg} variant={titleVariant.H3}>{item.balance}</Title>
-                    </Balance>
-                ))}
+                <Balance>
+                    <Coin w="32px" h="32px" />
+                    <Title color={Theme.color.bg} variant={titleVariant.H3}>{balance.balance?.maticAmount}</Title>
+                </Balance>
+                <Balance>
+                    <NFT w="32px" h="32px" />
+                    <Title color={Theme.color.bg} variant={titleVariant.H3}>{balance.balance_nft?.length}</Title>
+                </Balance>
             </Content>
         </Wrapper>
     )

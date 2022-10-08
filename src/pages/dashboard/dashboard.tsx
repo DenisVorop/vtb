@@ -14,6 +14,9 @@ import Nft from '../../features/nft/nft'
 import OperationsTable from '../../features/operations-table/operations-table'
 import Tablet from '../../features/tablet/Tablet'
 import { useAppSelector } from '../../hooks/redux'
+import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
+import { useGetUserBalanceQuery } from '../../services/user/user'
+import { TUserBalance } from '../../types/types'
 
 import { titleVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
@@ -62,13 +65,14 @@ const Reverse = styled.div`
 interface IDashboardProps { }
 
 const Dashboard: React.FC<IDashboardProps> = () => {
-    const {user} = useAppSelector(state => state.base)
+    const { user } = useAppSelector(state => state.base)
+    const { data: balance } = useGetUserBalanceQuery(user.user_id)
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>{user.name}, time to adventures!</Title>
             <Content>
                 <Row>
-                    <Balance />
+                    <Balance balance={balance ? balance : {} as TUserBalance} />
                     <Level />
                     <Desktop>
                         <Nft />

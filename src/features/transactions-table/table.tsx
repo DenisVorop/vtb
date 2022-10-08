@@ -5,7 +5,7 @@ import { TablePlus } from '../../assets/images/_images'
 
 import StyledTable from '../../components/table/table'
 import Title from '../../components/title/title'
-import { TTransaction } from '../../types/types'
+import { TTransaction, TUserTransaction } from '../../types/types'
 
 import { titleVariant } from '../../utils/consts'
 
@@ -57,16 +57,13 @@ const AddAction = styled.div`
     }
 `
 
-const Centered = styled.div`
-    text-align: center;
-`
-
 
 interface ITableProps {
-    list: TTransaction[]
+    list: TUserTransaction[]
 }
 
 const Table: React.FC<ITableProps> = ({ list }) => {
+    //todo !!! change user_to -> user_from
     return (
         <React.Fragment>
             {list.length
@@ -81,16 +78,16 @@ const Table: React.FC<ITableProps> = ({ list }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {[...tRowList, ...tRowList, ...tRowList].map((item, index: number) => (
+                        {list.map((item: TUserTransaction, index: number) => (
                             <tr key={index}>
                                 <td><AddAction><TablePlus /></AddAction></td>
-                                <td>{item.user.name}</td>
-                                <td>{item.user.department}</td>
-                                <td>{item.user.job_title}</td>
+                                <td>{item.user_to?.name}</td>
+                                <td>{item.user_to?.department.name}</td>
+                                <td>{item.user_to?.job_title}</td>
                                 <td>{item.date}</td>
-                                <td>{item.event.name}</td>
-                                <td>{item.sum}</td>
-                                <td>{item.status}</td>
+                                <td>{item.timestamp}</td>
+                                <td>{item.value_matic}</td>
+                                <td>{item.error ? 'Выполнено' : 'Ошибка'}</td>
                             </tr>
                         ))}
                     </tbody>

@@ -40,3 +40,23 @@ export type TTransaction = {
     confirmations: number
     isError: string
 }
+
+export type TUserTransaction = {
+    user_from: TUser | null
+    user_to: TUser | null
+    department: TDepartment
+    job_title: string
+    value_matic: number
+    value_rub: number
+    error: string
+    timestamp: number
+    date: string
+}
+
+export type TUserBalance = {
+    balance: {
+        maticAmount: number
+        coinsAmount: number
+    }
+    balance_nft: any[]
+}

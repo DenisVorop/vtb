@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
 
 import { Theme } from '../../styles/theme'
 
@@ -80,7 +80,6 @@ const Chart: React.FC<IChartProps> = ({
         >
             <XAxis dataKey="day" scale="point" padding={{ left: 16, right: 16 }} tickLine={false} />
             <YAxis tickLine={false} />
-            {/*<Tooltip />*/}
             <CartesianGrid strokeDasharray="3 3" stroke="none" />
             <Bar dataKey="pv" fill={Theme.color.ultramarine} isAnimationActive={false} />
         </BarChart>

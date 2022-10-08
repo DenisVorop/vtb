@@ -19,7 +19,7 @@ import Level from '../../features/level/level'
 import Nft from '../../features/nft/nft'
 import OperationsTable from '../../features/operations-table/operations-table'
 import Table from '../../features/transactions-table/table'
-import { TTransaction } from '../../types/types'
+import { TTransaction, TUserBalance, TUserTransaction } from '../../types/types'
 
 import { buttonVariant, textVariant, titleVariant } from '../../utils/consts'
 
@@ -172,14 +172,14 @@ const Components: React.FC = () => {
                 </Popup>
                 <br />
                 <br />
-                <Table list={[] as TTransaction[]} />
+                <Table list={[] as TUserTransaction[]} />
                 <br />
                 <br />
                 <ProgressBar percent={percent} />
                 <Input onChange={(e: any) => setPercent(e.target.value)} value={percent} type="number" />
                 <br />
                 <br />
-                <Balance />
+                <Balance balance={{} as TUserBalance} />
                 <br />
                 <br />
                 <Level />

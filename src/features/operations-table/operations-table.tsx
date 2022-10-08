@@ -9,6 +9,7 @@ import Title from '../../components/title/title'
 import { useAppSelector } from '../../hooks/redux'
 import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
 import { Theme } from '../../styles/theme'
+import { TUserTransaction } from '../../types/types'
 
 import { buttonVariant, path, textVariant, titleVariant } from '../../utils/consts'
 
@@ -36,9 +37,9 @@ const Operations = styled.div`
 
 `
 
-interface IOperationProps { }
+interface IOperationsProps { }
 
-const OperationsTable: React.FC<IOperationProps> = () => {
+const OperationsTable: React.FC<IOperationsProps> = () => {
     const navigate = useNavigate()
     const navigateTo = React.useCallback(() => {
         navigate(path.PROFILE)
@@ -53,8 +54,8 @@ const OperationsTable: React.FC<IOperationProps> = () => {
             </Top>
             <Operations>
                 {data?.length
-                    ? data.map(() => (
-                        <Operation />
+                    ? data.map((item: TUserTransaction, index: number) => (
+                        <Operation item={item} />
                     ))
                     : <span>Транзакций нет</span>
                 }
@@ -95,18 +96,22 @@ const Oper = styled.div`
     gap: 4px;
 `
 
-const Operation = React.memo(() => {
+interface IOperationProps {
+    item: TUserTransaction
+}
+const Operation: React.FC<IOperationProps> = React.memo(({ item }) => {
+    //todo !!! change user_to -> user_from
     return (
         <Content>
             <Info>
                 <Icon>ВК</Icon>
                 <div>
-                    <Text variant={textVariant.T2}>Василий Крылов</Text>
-                    <Text variant={textVariant.T4} color={Theme.color_opacity.light_gray_60}>29.09.2022 18:18</Text>
+                    <Text variant={textVariant.T2}>{item.user_to?.name}</Text>
+                    <Text variant={textVariant.T4} color={Theme.color_opacity.light_gray_60}>{item.date}</Text>
                 </div>
             </Info>
             <Oper>
-                <Title variant={titleVariant.H5}>+ 2400</Title>
+                <Title variant={titleVariant.H5}>+ {item.value_matic}</Title>
                 <Coin w="24px" h="24px" />
             </Oper>
         </Content>
