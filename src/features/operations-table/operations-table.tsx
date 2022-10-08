@@ -14,7 +14,7 @@ import { buttonVariant, path, textVariant, titleVariant } from '../../utils/cons
 
 
 const Wrapper = styled.div`
-    background: ${({ theme }) => theme.color_opacity.light_gray_4};
+    background: ${({ theme }) => theme.color_opacity.light_gray_8};
     box-shadow: 0px 4px 32px rgba(2, 9, 21, 0.2);
     backdrop-filter: blur(17px);
     border-radius: 16px;

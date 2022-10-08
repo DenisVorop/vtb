@@ -19,8 +19,9 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	gap: 8px;
 `
-const CustomSelectWrapper = styled.div`
+const CustomSelectWrapper = styled.div<{w?:string}>`
 	position: relative;
+  width: ${({w}) => w};
 `
 const SelectedOption = styled.div<ISelectedOption>`
     display: flex;
@@ -98,6 +99,7 @@ interface CustomSelectProps {
     selected: any
     noSelect?: boolean
     multiple?: boolean
+    w?: string
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -107,6 +109,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     selected,
     noSelect = false,
     multiple = false,
+    w,
 }) => {
     const [selectedItems, setSelectedItems] = React.useState(selected)
     const [isActiveList, setIsActiveList] = React.useState<boolean>(false)
@@ -142,7 +145,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <Wrapper>
             {label && <Text variant={textVariant.T4}>{label}</Text>}
             {!noSelect && (
-                <CustomSelectWrapper>
+                <CustomSelectWrapper w={w}>
                     <SelectedOption onClick={openSelectList} isActiveList={isActiveList} isMultiple={multiple}>
                         <Options>
                             {

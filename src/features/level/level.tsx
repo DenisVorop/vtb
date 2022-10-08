@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    background: ${({theme}) => theme.color_opacity.light_gray_4};
+    background: ${({theme}) => theme.color_opacity.light_gray_8};
     width: 100%;
     @media ${device.tabletS} {
         width: auto;

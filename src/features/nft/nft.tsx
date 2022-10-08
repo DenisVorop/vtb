@@ -14,7 +14,7 @@ import { device } from '../../utils/utils'
 
 const Wrapper = styled.div`
     padding: 24px;
-    background: ${({ theme }) => theme.color_opacity.light_gray_4};
+    background: ${({ theme }) => theme.color_opacity.light_gray_8};
     border-radius: 16px;
     display: flex;
     flex-direction: column;
