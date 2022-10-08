@@ -5,6 +5,7 @@ import { TablePlus } from '../../assets/images/_images'
 
 import StyledTable from '../../components/table/table'
 import Title from '../../components/title/title'
+import { TTransaction } from '../../types/types'
 
 import { titleVariant } from '../../utils/consts'
 
@@ -56,36 +57,47 @@ const AddAction = styled.div`
     }
 `
 
+const Centered = styled.div`
+    text-align: center;
+`
 
-interface ITableProps { }
 
-const Table: React.FC<ITableProps> = () => {
+interface ITableProps {
+    list: TTransaction[]
+}
+
+const Table: React.FC<ITableProps> = ({ list }) => {
     return (
-        <StyledTable>
-            <thead>
-                <tr>
-                    {theadList.map((value: string, index: number) => (
-                        <th key={index}>
-                            <Title variant={titleVariant.H6}>{value}</Title>
-                        </th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {[...tRowList, ...tRowList, ...tRowList].map((item, index: number) => (
-                    <tr key={index}>
-                        <td><AddAction><TablePlus /></AddAction></td>
-                        <td>{item.user.name}</td>
-                        <td>{item.user.department}</td>
-                        <td>{item.user.job_title}</td>
-                        <td>{item.date}</td>
-                        <td>{item.event.name}</td>
-                        <td>{item.sum}</td>
-                        <td>{item.status}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </StyledTable>
+        <React.Fragment>
+            {list.length
+                ? <StyledTable>
+                    <thead>
+                        <tr>
+                            {theadList.map((value: string, index: number) => (
+                                <th key={index}>
+                                    <Title variant={titleVariant.H6}>{value}</Title>
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {[...tRowList, ...tRowList, ...tRowList].map((item, index: number) => (
+                            <tr key={index}>
+                                <td><AddAction><TablePlus /></AddAction></td>
+                                <td>{item.user.name}</td>
+                                <td>{item.user.department}</td>
+                                <td>{item.user.job_title}</td>
+                                <td>{item.date}</td>
+                                <td>{item.event.name}</td>
+                                <td>{item.sum}</td>
+                                <td>{item.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </StyledTable>
+                : 'Транзакций нет'
+            }
+        </React.Fragment>
     )
 }
 

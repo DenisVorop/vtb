@@ -8,14 +8,16 @@ import { Theme } from '../../styles/theme'
 import { textVariant, titleVariant } from '../../utils/consts'
 
 import Coin from '../coin/coin'
+import EmptyCard from '../empty-card/empty-card'
 import Text from '../text/text'
 import Title from '../title/title'
 
 interface IWrapperProps {
     isEmpty?: boolean
+    w?: string
 }
 const Wrapper = styled.div<IWrapperProps>`
-    padding: 20px;
+    padding: ${({ w }) => !w && '20px'};
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -81,36 +83,20 @@ const UserInfo = styled.div`
     gap: 8px;
 `
 
-const CenteredBlock = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-`
-
 interface IEventCardProps {
     empty?: boolean
+    w?: string
+    children?: React.ReactNode
 }
 
-const EventCard: React.FC<IEventCardProps> = ({ empty }) => {
+const EventCard: React.FC<IEventCardProps> = ({ empty, w, children }) => {
     const ref = React.useRef(null)
     const isHovering = useHover(ref)
 
     return (
-        <Wrapper isEmpty={empty} ref={ref}>
+        <Wrapper isEmpty={empty} ref={ref} w={w}>
             {empty
-                ? <CenteredBlock>
-                    <Title
-                        variant={titleVariant.H5}
-                        color={
-                            isHovering
-                                ? Theme.color_opacity.light_gray_40
-                                : Theme.color_opacity.light_gray_10
-                        }
-                    >
-                        Ивент
-                    </Title>
-                </CenteredBlock>
+                ? <EmptyCard w={w} isHover={isHovering}>ИВЕНТ</EmptyCard>
                 : <>
                     <UserInfo>
                         <Icon>АД</Icon>
@@ -127,6 +113,7 @@ const EventCard: React.FC<IEventCardProps> = ({ empty }) => {
                         <Title variant={titleVariant.H6}>месячные продажи</Title>
                         <Text variant={textVariant.T4}>Награда тому, кто выполнит больше продаж</Text>
                     </EventInfo>
+                    {children && children}
                 </>
             }
         </Wrapper>

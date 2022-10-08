@@ -7,9 +7,9 @@ interface IDevices {
 }
 
 const queries = [
-    '(max-width: 766px)',
-    '(min-width: 767px) and (max-width: 1199px)',
-    '(min-width: 1200px)',
+    '(max-width: 767.97px)',
+    '(min-width: 768px) and (max-width: 1279.97px)',
+    '(min-width: 1280px)',
 ]
 
 export const useMatchMedia = (): IDevices => {

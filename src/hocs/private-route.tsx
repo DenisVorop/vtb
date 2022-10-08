@@ -29,20 +29,20 @@ const PrivateRoute: React.FC<IPrivateRouteProps> = ({ children }) => {
   const authorizationStatus = useAppSelector((state) => state.base.authorizationStatus)
 
   React.useEffect(() => {
-    if (authorizationStatus !== AuthorizationStatus.AUTH && Cookies.get('что-то')) {
+    if (authorizationStatus !== AuthorizationStatus.AUTH && Cookies.get('user')) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH))
+    }
+
+    if (!Cookies.get('user')) {
+      dispatch(setAuthorizationStatus(AuthorizationStatus.NO_AUTH))
+    }
+
+    if (location.pathname === '/auth' && Cookies.get('user')) {
+      navigate('/')
       notify({
         type: 'success',
         content: () => 'Вы авторизованы',
       })
-    }
-
-    if (!Cookies.get('что-то')) {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NO_AUTH))
-    }
-
-    if (location.pathname === '/auth' && Cookies.get('что-то')) {
-      navigate('/')
     }
 
     setIsLoading(false)
@@ -53,7 +53,7 @@ const PrivateRoute: React.FC<IPrivateRouteProps> = ({ children }) => {
       {!isLoading
         ? authorizationStatus === AuthorizationStatus.AUTH
           ? <>
-            <Header />
+            {/* <Header /> */}
             {children}
           </>
           : <Redirect to={path.AUTH} />

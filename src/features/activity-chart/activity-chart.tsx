@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     box-shadow: 0px 4px 32px rgba(2, 9, 21, 0.2);
     backdrop-filter: blur(17px);
     border-radius: 16px;
-    max-width: 400px;
+    flex: 1 1 auto;
 `
 
 interface IActivityChartProps { }

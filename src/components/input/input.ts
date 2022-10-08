@@ -9,6 +9,7 @@ const Input = styled.input`
     border-radius: 4px;
     width: 100%;
     color: ${({ theme }) => theme.color.light_gray};
+    min-height: 40px;
 
     ::placeholder {
         font-family: 'Plex sans';

@@ -32,6 +32,7 @@ interface IColorOpacity {
     light_gray_10: string
     light_gray_4: string
     bg_60: string
+    ultramarine_20: string
 }
 
 declare module 'styled-components' {

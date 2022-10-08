@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
 import { Theme } from '../../styles/theme'
 
@@ -66,26 +66,24 @@ const Chart: React.FC<IChartProps> = ({
     h = 200,
 }) => {
     return (
-        <ResponsiveContainer width="100%" height={h}>
-            <BarChart
-                width={w}
-                height={h}
-                data={data}
-                margin={{
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    bottom: 0,
-                }}
-                barSize={16}
-            >
-                <XAxis dataKey="day" scale="point" padding={{ left: 16, right: 16 }} tickLine={false} />
-                <YAxis tickLine={false} />
-                <Tooltip />
-                <CartesianGrid strokeDasharray="3 3" stroke="none" />
-                <Bar dataKey="pv" fill={Theme.color.ultramarine} />
-            </BarChart>
-        </ResponsiveContainer>
+        <BarChart
+            width={w}
+            height={h}
+            data={data}
+            margin={{
+                top: 0,
+                right: 0,
+                left: -40,
+                bottom: 0,
+            }}
+            barSize={16}
+        >
+            <XAxis dataKey="day" scale="point" padding={{ left: 16, right: 16 }} tickLine={false} />
+            <YAxis tickLine={false} />
+            <Tooltip />
+            <CartesianGrid strokeDasharray="3 3" stroke="none" />
+            <Bar dataKey="pv" fill={Theme.color.ultramarine} isAnimationActive={false} />
+        </BarChart>
     )
 }
 

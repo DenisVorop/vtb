@@ -35,7 +35,9 @@ const Body = styled.div<IBodyProps>`
 	transition: all 0.3s ease 0s;
 	display: flex;
 	flex-direction: column;
+	gap: 16px;
 	transform: ${({ active }) => (active ? 'scale(1)' : 'scale(.5)')};
+	box-shadow: ${({ theme }) => `0px 0px 60px ${theme.color_opacity.light_gray_20}`};
 `
 
 interface IPopupProps {

@@ -1,6 +1,15 @@
+export const BASE_URL = 'http://localhost:3001'
+
 export const path = {
-    MAIN: '/',
+    COMPONENTS: '/components',
     AUTH: '/auth',
+    DASHBOARD: '/',
+    ALL_EVENTS: '/events',
+    LOGOUT: '/logout',
+    PROFILE: '/profile',
+    MARKETPLACE: '/marketplace',
+    SETTINGS: '/settings',
+    NEW_EVENT: '/new_event',
 }
 
 export const AuthorizationStatus = {

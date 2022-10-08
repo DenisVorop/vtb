@@ -8,10 +8,11 @@ import Title from '../../components/title/title'
 
 import { Theme } from '../../styles/theme'
 import { textVariant, titleVariant } from '../../utils/consts'
+import { device } from '../../utils/utils'
 
 const Wrapper = styled.div`
     padding: 24px;
-    border: ${({ theme }) => `1px solid ${theme.color_opacity.light_gray_40}`};
+    /* border: ${({ theme }) => `1px solid ${theme.color_opacity.light_gray_40}`}; */
     filter: drop-shadow(0px 4px 32px rgba(2, 9, 21, 0.2));
     backdrop-filter: blur(17px);
     border-radius: 16px;
@@ -19,8 +20,11 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    width: fit-content;
     background: ${({theme}) => theme.color_opacity.light_gray_4};
+    width: 100%;
+    @media ${device.tabletS} {
+        width: auto;
+    }
 `
 
 const ProgressBarContent = styled.div`

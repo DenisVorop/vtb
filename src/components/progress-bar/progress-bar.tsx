@@ -21,7 +21,6 @@ const Circle = styled.circle<ICircleProps>`
     transform: rotate(-90deg);
     stroke-dasharray: ${({ circumference }) => `${circumference} ${circumference}`};
     stroke-dashoffset: ${({ offset }) => offset};
-    transition: all 0.3s ease 0s;
 `
 
 interface IProgressBarProps {

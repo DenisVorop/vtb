@@ -1,17 +1,20 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import Button from '../../components/button/button'
 import Coin from '../../components/coin/coin'
 import Text from '../../components/text/text'
 import Title from '../../components/title/title'
+import { useAppSelector } from '../../hooks/redux'
+import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
 import { Theme } from '../../styles/theme'
 
-import { buttonVariant, textVariant, titleVariant } from '../../utils/consts'
+import { buttonVariant, path, textVariant, titleVariant } from '../../utils/consts'
 
 
 const Wrapper = styled.div`
-    background: ${({theme}) => theme.color_opacity.light_gray_4};
+    background: ${({ theme }) => theme.color_opacity.light_gray_4};
     box-shadow: 0px 4px 32px rgba(2, 9, 21, 0.2);
     backdrop-filter: blur(17px);
     border-radius: 16px;
@@ -19,6 +22,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+    flex: 1 1 auto;
+    /* min-width: 360px; */
 `
 
 const Top = styled.div`
@@ -34,16 +39,25 @@ const Operations = styled.div`
 interface IOperationProps { }
 
 const OperationsTable: React.FC<IOperationProps> = () => {
+    const navigate = useNavigate()
+    const navigateTo = React.useCallback(() => {
+        navigate(path.PROFILE)
+    }, [])
+    const { user } = useAppSelector(state => state.base)
+    const { data } = useGetUserTransactionsQuery(user.user_id)
     return (
         <Wrapper>
             <Top>
                 <Title variant={titleVariant.H6} color={Theme.color_opacity.light_gray_60}>Операции</Title>
-                <Button variant={buttonVariant.TEXT}>Смотреть все</Button>
+                <Button variant={buttonVariant.TEXT} onClick={navigateTo}>Смотреть все</Button>
             </Top>
             <Operations>
-                {[1, 2, 3, 4, 5].map(() => (
-                    <Operation />
-                ))}
+                {data?.length
+                    ? data.map(() => (
+                        <Operation />
+                    ))
+                    : <span>Транзакций нет</span>
+                }
             </Operations>
         </Wrapper>
     )

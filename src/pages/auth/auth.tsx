@@ -10,6 +10,9 @@ import Container from '../../components/container/container'
 import Text from '../../components/text/text'
 import Title from '../../components/title/title'
 
+import { useAuth } from '../../services/hooks/use-auth'
+import { useAppSelector } from '../../hooks/redux'
+
 
 const userList = [
     'Статистика по участию в событиях',
@@ -46,14 +49,14 @@ const Cards = styled.div`
 `
 
 const Login: React.FC = () => {
-    const navigate = useNavigate()
+    const [, auth] = useAuth('auth')
 
     const handleUserRole = React.useCallback(() => {
-        navigate('/')
-    }, [navigate])
+        auth(1)
+    }, [auth])
     const handleAdminRole = React.useCallback(() => {
-        navigate('/')
-    }, [navigate])
+        auth(2)
+    }, [auth])
 
     return (
         <Container>
