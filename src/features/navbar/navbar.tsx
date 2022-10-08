@@ -13,10 +13,10 @@ const Wrapper = styled.div`
     height: 100vh;
     border-radius: 0px 16px 16px 0px;
     background-color: ${({ theme }) => theme.color_opacity.ultramarine_20};
-    padding: 8px;
+    padding: 32px 8px 8px 8px;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 24px;
 `
 
 const Logo = styled.div`
