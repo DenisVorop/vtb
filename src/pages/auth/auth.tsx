@@ -31,7 +31,7 @@ const adminList = [
 
 
 const Wrapper = styled.div`
-    padding-top: 100px;
+    padding-top: 40px;
 `
 
 const Content = styled.div`
