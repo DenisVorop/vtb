@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-import Container from '../../components/container/container'
 import Title from '../../components/title/title'
 
 import ActivityChart from '../../features/activity-chart/activity-chart'
@@ -13,11 +12,11 @@ import Mobile from '../../features/mobile/mobile'
 import Nft from '../../features/nft/nft'
 import OperationsTable from '../../features/operations-table/operations-table'
 import Tablet from '../../features/tablet/Tablet'
+
 import { useAppSelector } from '../../hooks/redux'
-import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
+import { useGetAllEventsQuery } from '../../services/events/events'
 import { useGetUserBalanceQuery } from '../../services/user/user'
 import { TUserBalance } from '../../types/types'
-
 import { titleVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
 
@@ -57,6 +56,7 @@ const Reverse = styled.div`
     flex-wrap: wrap;
     @media ${device.mobileL} {
         flex-direction: row;
+        justify-content: end;
         flex: 1 1 auto;
     }
 `
@@ -67,6 +67,7 @@ interface IDashboardProps { }
 const Dashboard: React.FC<IDashboardProps> = () => {
     const { user } = useAppSelector(state => state.base)
     const { data: balance } = useGetUserBalanceQuery(user.user_id)
+    const { data: events } = useGetAllEventsQuery(null)
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>{user.name}, time to adventures!</Title>
@@ -82,7 +83,11 @@ const Dashboard: React.FC<IDashboardProps> = () => {
                     </Tablet>
                 </Row>
                 <Row>
-                    <EventCards title="Активных ивента" count={3} />
+                    <EventCards
+                        title="Активных ивентов"
+                        count={events?.length || 0}
+                        list={events || []}
+                    />
                     <Reverse>
                         <OperationsTable />
                         <Mobile>

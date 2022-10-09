@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import { Theme } from '../../styles/theme'
 import { TUserBalance } from '../../types/types'
 import { titleVariant } from '../../utils/consts'
-import { device } from '../../utils/utils'
+import { device, rounding_format } from '../../utils/utils'
 
 import Coin from '../coin/coin'
 import NFT from '../coin/nft'
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     border-radius: 16px;
     max-height: 200px;
     min-width: 200px;
-    flex: 1 1 auto;
+    flex: 1 0 auto;
 `
 
 const Content = styled.div<{ isRow?: boolean }>`
@@ -51,7 +51,7 @@ const BalanceCard: React.FC<IBalanceCardProps> = ({ isRow, balance }) => {
             <Content isRow={isRow}>
                 <Balance>
                     <Coin w="32px" h="32px" />
-                    <Title color={Theme.color.bg} variant={titleVariant.H3}>{balance.balance?.maticAmount}</Title>
+                    <Title color={Theme.color.bg} variant={titleVariant.H3}>{rounding_format(balance.balance?.maticAmount, 4, '.', '')}</Title>
                 </Balance>
                 <Balance>
                     <NFT w="32px" h="32px" />

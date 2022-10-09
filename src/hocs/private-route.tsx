@@ -8,8 +8,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux'
 
 import { AuthorizationStatus, path } from '../utils/consts'
 
-import Header from '../features/header/header'
-
 import { setAuthorizationStatus } from '../store/slices/base-slice'
 
 import Redirect from './redirect'
@@ -26,7 +24,7 @@ const PrivateRoute: React.FC<IPrivateRouteProps> = ({ children }) => {
   const { notify } = useNotification()
   const [isLoading, setIsLoading] = React.useState(true)
 
-  const authorizationStatus = useAppSelector((state) => state.base.authorizationStatus)
+  const { authorizationStatus } = useAppSelector((state) => state.base)
 
   React.useEffect(() => {
     if (authorizationStatus !== AuthorizationStatus.AUTH && Cookies.get('user')) {
@@ -53,7 +51,6 @@ const PrivateRoute: React.FC<IPrivateRouteProps> = ({ children }) => {
       {!isLoading
         ? authorizationStatus === AuthorizationStatus.AUTH
           ? <>
-            {/* <Header /> */}
             {children}
           </>
           : <Redirect to={path.AUTH} />

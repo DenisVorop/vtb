@@ -7,6 +7,7 @@ import Text from '../../components/text/text'
 import Title from '../../components/title/title'
 
 import { Theme } from '../../styles/theme'
+import { TUserBalance } from '../../types/types'
 import { textVariant, titleVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
 
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    background: ${({theme}) => theme.color_opacity.light_gray_4};
+    background: ${({ theme }) => theme.color_opacity.light_gray_8};
     width: 100%;
     @media ${device.tabletS} {
         width: auto;
@@ -67,9 +68,12 @@ const FlexColumn = styled.div`
     align-items: center;
 `
 
-interface ILevelProps { }
+interface ILevelProps {
+
+}
 
 const Level: React.FC<ILevelProps> = () => {
+
     return (
         <Wrapper>
             <PositionBlock>

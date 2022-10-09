@@ -7,6 +7,7 @@ import Profile from './profile/Profile'
 import Logout from './logout/logout'
 import Marketplace from './marketplace/marketplace'
 import NewEvent from './new-event/new-event'
+import AllEvents from './all-events/all-events'
 
 
 
@@ -24,4 +25,5 @@ export const pages: IPages[] = [
     { element: <Logout />, path: path.LOGOUT },
     { element: <Marketplace />, path: path.MARKETPLACE },
     { element: <NewEvent />, path: path.NEW_EVENT },
+    { element: <AllEvents />, path: path.ALL_EVENTS },
 ]

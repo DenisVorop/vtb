@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import EventCard from '../../components/event-card/event-card'
 import Title from '../../components/title/title'
 import { Theme } from '../../styles/theme'
+import { TEvent } from '../../types/types'
 import { titleVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
 
@@ -27,7 +28,7 @@ const Cards = styled.div<{ w?: string }>`
     overflow-x: auto;
     padding-bottom: 16px;
     @media ${device.laptopM} {
-        max-width: ${({ w }) => w ? w : '916px'};
+        max-width: ${({ w }) => w ? w : '750px'};
     }
 `
 
@@ -35,9 +36,10 @@ interface IEventCardsProps {
     w?: string
     title: string
     count: number
+    list: TEvent[]
 }
 
-const EventCards: React.FC<IEventCardsProps> = ({ w, title, count }) => {
+const EventCards: React.FC<IEventCardsProps> = ({ w, title, count, list }) => {
     return (
         <Wrapper>
             <ActiveEvents>
@@ -45,10 +47,10 @@ const EventCards: React.FC<IEventCardsProps> = ({ w, title, count }) => {
                 <Title variant={titleVariant.H6} color={Theme.color_opacity.light_gray_60}>{title}</Title>
             </ActiveEvents>
             <Cards w={w}>
-                {[1, 2, 3, 4, 5, 6].map(() => (
-                    <EventCard />
+                {list.map((item: TEvent, index: number) => (
+                    <EventCard key={index} item={item} />
                 ))}
-                <EventCard empty w="205px" />
+                <EventCard empty w="205px" item={{} as TEvent} />
             </Cards>
         </Wrapper>
     )

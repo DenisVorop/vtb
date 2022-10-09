@@ -19,8 +19,8 @@ import Level from '../../features/level/level'
 import Nft from '../../features/nft/nft'
 import OperationsTable from '../../features/operations-table/operations-table'
 import Table from '../../features/transactions-table/table'
-import { TTransaction, TUserBalance, TUserTransaction } from '../../types/types'
 
+import { TUserBalance, TUserTransaction } from '../../types/types'
 import { buttonVariant, textVariant, titleVariant } from '../../utils/consts'
 
 
@@ -185,7 +185,7 @@ const Components: React.FC = () => {
                 <Level />
                 <br />
                 <br />
-                <EventCards count={3} title="что угодно ввести можно" />
+                <EventCards list={[]} count={3} title="что угодно ввести можно" />
                 <br />
                 <br />
                 <OperationsTable />

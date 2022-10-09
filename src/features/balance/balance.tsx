@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     @media ${device.tabletS} {
         gap: 24px;
     }

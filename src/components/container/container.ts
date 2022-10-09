@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import { device } from '../../utils/utils'
 
 const Container = styled.div`
-    max-width: 1360px;
+    max-width: 1320px;
     padding: 24px 15px;
     box-sizing: content-box;
     margin: 0 auto;

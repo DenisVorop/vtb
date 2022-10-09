@@ -12,6 +12,8 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "axios": "^1.1.2",
+    "isomorphic-dompurify": "^0.23.0",
+    "mustache": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
@@ -50,6 +52,8 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.186",
+    "@types/mustache": "^4.2.1",
     "@types/styled-components": "^5.1.26"
   }
 }

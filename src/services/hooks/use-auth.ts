@@ -10,11 +10,11 @@ export const useAuth = (status: string): [any, (id: number) => void] => {
     const dispatch = useAppDispatch()
     const [id, setId] = React.useState<number>(0)
     const handleChangeId = (id: number) => setId(id)
-    const { data, isLoading, refetch } = useAuthQuery({ id: id })
+    const { data } = useAuthQuery({ id: id })
     React.useEffect(() => {
-        if (status === 'auth' && !!data) {
+        if (status === 'auth' && !!data?.user_id) {
             dispatch(setUser(data))
         }
-    }, [status, data, dispatch, isLoading])
+    }, [data])
     return [data, handleChangeId]
 }

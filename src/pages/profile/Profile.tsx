@@ -20,6 +20,7 @@ import { useAppSelector } from '../../hooks/redux'
 import { useGetUserBalanceQuery, useGetUserQuery } from '../../services/user/user'
 import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
 import { TUserBalance } from '../../types/types'
+import { useGetActiveEventsFromUserQuery, useGetInactiveEventsFromUserQuery } from '../../services/events/events'
 
 
 const Wrapper = styled.div`
@@ -41,6 +42,14 @@ const Content = styled.div`
     flex: 1 1 auto;
 `
 
+const TableWrapper = styled.div`
+    box-shadow: 0px 4px 32px rgba(2, 9, 21, 0.2);
+    backdrop-filter: blur(17px);
+    padding: 24px;
+    background-color: ${({ theme }) => theme.color_opacity.light_gray_8};
+    border-radius: 12px;
+`
+
 interface IProfileProps { }
 
 const Profile: React.FC<IProfileProps> = () => {
@@ -52,6 +61,8 @@ const Profile: React.FC<IProfileProps> = () => {
     const { data: userInfo } = useGetUserQuery(id)
     const { data: transactions } = useGetUserTransactionsQuery(id ? id : user.user_id)
     const { data: balance } = useGetUserBalanceQuery(id ? id : user.user_id)
+    const { data: inactiveEventsFromUser } = useGetInactiveEventsFromUserQuery(id ? id : user.user_id)
+    const { data: activeEventsFromUser } = useGetActiveEventsFromUserQuery(id ? id : user.user_id)
 
     const [isVisiblePopup, setIsVisiblePopup] = React.useState<boolean>(false)
     const [createTransferFields, setCreateTransferFields] = React.useState<{
@@ -105,8 +116,19 @@ const Profile: React.FC<IProfileProps> = () => {
                     <Row>
                         <NFTList isFlex />
                     </Row>
-                    <EventCards count={15} title="пройденных ивентов" w="1320px" />
-                    {transactions && <span id="table"><Table list={transactions} /></span>}
+                    <EventCards
+                        count={activeEventsFromUser?.length || 0}
+                        title="активных ивентов"
+                        w="100%"
+                        list={activeEventsFromUser || []}
+                    />
+                    <EventCards
+                        count={inactiveEventsFromUser?.length || 0}
+                        title="пройденных ивентов"
+                        w="100%"
+                        list={inactiveEventsFromUser || []}
+                    />
+                    {transactions && <TableWrapper><Table list={transactions} /></TableWrapper>}
                 </Content>
             </Wrapper>
 

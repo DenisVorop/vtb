@@ -5,6 +5,10 @@ import Button from '../../components/button/button'
 import EventCard from '../../components/event-card/event-card'
 import Title from '../../components/title/title'
 
+import { useGetAllActiveEventsQuery, useGetAllInactiveEventsQuery } from '../../services/events/events'
+import { useGetAllMarketQuery } from '../../services/market/market'
+import { TEvent } from '../../types/types'
+
 import { buttonVariant, titleVariant } from '../../utils/consts'
 
 const Wrapper = styled.div`
@@ -22,17 +26,33 @@ const Cards = styled.div`
 interface IMarketplaceProps { }
 
 const Marketplace: React.FC<IMarketplaceProps> = () => {
+    const { data: allMarket } = useGetAllMarketQuery({ 'TYPE': ['market_item'] })
+    console.log(allMarket)
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>Маркетплейс</Title>
             <Cards>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => {
+                {allMarket?.map((item: any) => {
                     return (
-                        <EventCard>
-                            <Button variant={buttonVariant.PRIMARY}>Купить</Button>
+                        <EventCard item={item}>
+                            <Button
+                                variant={buttonVariant.PRIMARY}
+                            >
+                                Купить
+                            </Button>
                         </EventCard>
                     )
                 })}
+                {/* {allMarket?.map(() => {
+                    return (
+                        <EventCard disabled>
+                            <Button variant={buttonVariant.PRIMARY}>Закончилось</Button>
+                        </EventCard>
+                    )
+                })} */}
+                <EventCard disabled>
+                    <Button variant={buttonVariant.PRIMARY}>Закончилось</Button>
+                </EventCard>
             </Cards>
         </Wrapper>
     )

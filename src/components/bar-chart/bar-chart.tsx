@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
 
 import { Theme } from '../../styles/theme'
@@ -73,7 +72,7 @@ const Chart: React.FC<IChartProps> = ({
             margin={{
                 top: 0,
                 right: 0,
-                left: -40,
+                left: -32,
                 bottom: 0,
             }}
             barSize={16}

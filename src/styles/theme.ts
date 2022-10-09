@@ -31,6 +31,7 @@ export const Theme: DefaultTheme = {
         light_gray_40: 'rgba(254, 254, 252, 0.4)',
         light_gray_20: 'rgba(254, 254, 252, 0.2)',
         light_gray_10: 'rgba(254, 254, 252, 0.1)',
+        light_gray_8: 'rgba(254, 254, 252, 0.08)',
         light_gray_4: 'rgba(254, 254, 252, 0.04)',
         bg_60: 'rgba(2, 9, 21, 0.6)',
         ultramarine_20: 'rgba(161, 196, 255, 0.2)',

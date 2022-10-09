@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-import Coin from '../../components/coin/coin'
 import Text from '../../components/text/text'
 import Title from '../../components/title/title'
 import { Theme } from '../../styles/theme'

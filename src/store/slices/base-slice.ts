@@ -22,7 +22,7 @@ export const baseSlice = createSlice({
         setAuthorizationStatus: (state, action) => {
             state.authorizationStatus = action.payload
         },
-        setUser: (state, action) => {
+        setUser: (state, action: { payload: TUser }) => {
             state.user = action.payload
             if (action.payload.user_id) {
                 setCookie('user', JSON.stringify(action.payload))

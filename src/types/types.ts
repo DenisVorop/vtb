@@ -60,3 +60,30 @@ export type TUserBalance = {
     }
     balance_nft: any[]
 }
+
+export type TEvent = {
+    id: number
+    title: string
+    description: string
+    text: string
+    filter_params: string[]
+    max_count_members: number
+    all_members: number[]
+    approved_members: number[]
+    date_start: string
+    date_end: string
+    timestamp_start: number
+    timestamp_end: number
+    creator: {
+        id: number
+        role: string
+    },
+    rewards: [{
+        rub: number
+        nfts: number[]
+    }],
+    user_must_send_reports: boolean
+    status: string
+    _id?: string
+    TYPE?: string
+}

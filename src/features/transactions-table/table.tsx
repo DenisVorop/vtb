@@ -5,7 +5,7 @@ import { TablePlus } from '../../assets/images/_images'
 
 import StyledTable from '../../components/table/table'
 import Title from '../../components/title/title'
-import { TTransaction, TUserTransaction } from '../../types/types'
+import { TUserTransaction } from '../../types/types'
 
 import { titleVariant } from '../../utils/consts'
 
@@ -20,22 +20,6 @@ const theadList = [
     'Событие',
     'Сумма',
     'Статус',
-]
-
-const tRowList = [
-    {
-        event: {
-            name: 'Участие в событии',
-        },
-        user: {
-            name: 'Дорофеев Николай Пётрович',
-            department: 'Отдел продаж',
-            job_title: 'Психолог',
-        },
-        date: '26.09.2022 13:52',
-        sum: '4000',
-        status: 'Выплачено',
-    },
 ]
 
 const AddAction = styled.div`
@@ -63,7 +47,6 @@ interface ITableProps {
 }
 
 const Table: React.FC<ITableProps> = ({ list }) => {
-    //todo !!! change user_to -> user_from
     return (
         <React.Fragment>
             {list.length
@@ -81,9 +64,9 @@ const Table: React.FC<ITableProps> = ({ list }) => {
                         {list.map((item: TUserTransaction, index: number) => (
                             <tr key={index}>
                                 <td><AddAction><TablePlus /></AddAction></td>
-                                <td>{item.user_to?.name}</td>
-                                <td>{item.user_to?.department.name}</td>
-                                <td>{item.user_to?.job_title}</td>
+                                <td>{item.user_from?.name}</td>
+                                <td>{item.user_from?.department.name}</td>
+                                <td>{item.user_from?.job_title}</td>
                                 <td>{item.date}</td>
                                 <td>{item.timestamp}</td>
                                 <td>{item.value_matic}</td>

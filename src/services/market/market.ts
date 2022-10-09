@@ -1,38 +1,37 @@
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 
+import { TEvent } from '../../types/types'
 import { BASE_URL } from '../../utils/consts'
 
-import { TUser } from './../../types/types'
-
-export const authApi = createApi({
+export const marketApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL,
     }),
-    reducerPath: 'authApi',
-    tagTypes: ['Auth'],
+    reducerPath: 'marketApi',
+    tagTypes: ['Market'],
     endpoints: (build: EndpointBuilder<BaseQueryFn<
         string | FetchArgs,
         {},
         FetchBaseQueryError,
         {},
         FetchBaseQueryMeta>,
-        'Auth',
-        'authApi'>) => ({
-            auth: build.query<TUser, { id: number }>({
-                query(body: { id: number }) {
+        'Market',
+        'marketApi'>) => ({
+            getAllMarket: build.query<TEvent[], { TYPE: string[] }>({
+                query(body: { TYPE: string[] }) {
                     return {
-                        url: '/api/auth',
+                        url: '/api/find_events',
                         method: 'POST',
                         body,
                     }
                 },
-                transformResponse: (response: { content: TUser }) => response?.content,
-                // providesTags: [{ type: "Auth", id: "SCHEME" }],
+                transformResponse: (response: { content: TEvent[] }) => response.content,
+                // providesTags: [{ type: "Market", id: "SCHEME" }],
             }),
         }),
 })
 
 export const {
-    useAuthQuery,
-} = authApi
+    useGetAllMarketQuery,
+} = marketApi

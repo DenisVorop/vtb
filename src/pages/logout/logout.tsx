@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components/macro'
 import { removeCookie } from 'typescript-cookie'
 
 import { useAppDispatch } from '../../hooks/redux'
@@ -14,7 +13,6 @@ const Logout: React.FC<ILogoutProps> = () => {
     const dispatch = useAppDispatch()
 
     const exit = React.useCallback(() => {
-        console.log('xty')
         dispatch(setSignOut())
         dispatch(setAuthorizationStatus(AuthorizationStatus.NO_AUTH))
         navigate('/auth')

@@ -1,17 +1,14 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { useNavigate } from 'react-router-dom'
 
 import { Check } from '../../assets/images/_images'
 import { textVariant, titleVariant } from '../../utils/consts'
 import { Theme } from '../../styles/theme'
+import { useAuth } from '../../services/hooks/use-auth'
 
 import Container from '../../components/container/container'
 import Text from '../../components/text/text'
 import Title from '../../components/title/title'
-
-import { useAuth } from '../../services/hooks/use-auth'
-import { useAppSelector } from '../../hooks/redux'
 
 
 const userList = [

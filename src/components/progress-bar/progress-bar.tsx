@@ -17,7 +17,7 @@ interface ICircleProps {
 
 const Circle = styled.circle<ICircleProps>`
     transform-origin: center;
-    stroke-lineCap: round;
+    strokeLinecap: round;
     transform: rotate(-90deg);
     stroke-dasharray: ${({ circumference }) => `${circumference} ${circumference}`};
     stroke-dashoffset: ${({ offset }) => offset};

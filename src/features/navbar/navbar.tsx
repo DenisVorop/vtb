@@ -13,10 +13,10 @@ const Wrapper = styled.div`
     height: 100vh;
     border-radius: 0px 16px 16px 0px;
     background-color: ${({ theme }) => theme.color_opacity.ultramarine_20};
-    padding: 8px;
+    padding: 32px 8px 8px 8px;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 24px;
 `
 
 const Logo = styled.div`
@@ -65,7 +65,7 @@ const mainLinks = [
 ]
 
 const secondaryLinks = [
-    { name: 'Новый ивент', image: <AddEventImage />, path: path.NEW_EVENT },
+    { name: 'Новый ивент', image: <AddEventImage />, path: path.NEW_EVENT, role: 'admin' },
     { name: 'Настройки', image: <SettingsImage />, path: path.SETTINGS },
     { name: 'Выход', image: <LogoutImage />, path: path.LOGOUT },
 ]
@@ -74,12 +74,12 @@ interface INavbarProps { }
 
 const Navbar: React.FC<INavbarProps> = () => {
     const { pathname } = useLocation()
-    const [path, setPath] = React.useState<string>(pathname)
+    const [selectedPath, setSelectedPath] = React.useState<string>(pathname)
     const handleChangePath = React.useCallback((linkPath: string) => {
-        setPath(linkPath)
+        setSelectedPath(linkPath)
     }, [])
     React.useEffect(() => {
-        setPath(pathname)
+        setSelectedPath(pathname)
     }, [pathname])
     return (
         <Wrapper>
@@ -89,14 +89,22 @@ const Navbar: React.FC<INavbarProps> = () => {
             <AllLinks>
                 <Links>
                     {mainLinks.map((item) => (
-                        <LinkWrapper key={item.path} isActive={item.path === path} onClick={() => handleChangePath(item.path)}>
+                        <LinkWrapper
+                            key={item.path}
+                            isActive={item.path === selectedPath}
+                            onClick={() => handleChangePath(item.path)}
+                        >
                             <Link to={item.path}>{item.image}</Link>
                         </LinkWrapper>
                     ))}
                 </Links>
                 <Links>
                     {secondaryLinks.map((item) => (
-                        <LinkWrapper key={item.path} isActive={item.path === path} onClick={() => handleChangePath(item.path)}>
+                        <LinkWrapper
+                            key={item.path}
+                            isActive={item.path === selectedPath}
+                            onClick={() => handleChangePath(item.path)}
+                        >
                             <Link to={item.path}>{item.image}</Link>
                         </LinkWrapper>
                     ))}

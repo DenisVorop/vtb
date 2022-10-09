@@ -1,7 +1,7 @@
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 
-import { TTransaction, TUserTransaction } from '../../types/types'
+import { TUserTransaction } from '../../types/types'
 
 import { BASE_URL } from '../../utils/consts'
 
@@ -22,9 +22,25 @@ export const transactionsApi = createApi({
             transformResponse: (response: { content: TUserTransaction[] }) => response.content,
             // invalidatesTags: [{ type: "Users", id: "LIST" }],
         }),
+        sendCoin: build.mutation<any, {
+            id_user_from: number
+            id_user_to: number
+            amount: number
+        }>({
+            query(body) {
+                return {
+                    url: '/api/mongo_coin/send_coin_by_id_user',
+                    method: 'POST',
+                    body,
+                }
+            },
+            transformResponse: (response: { content: any }) => response.content,
+            // invalidatesTags: [{ type: "Users", id: "LIST" }],
+        }),
     }),
 })
 
 export const {
     useGetUserTransactionsQuery,
+    useSendCoinMutation,
 } = transactionsApi
