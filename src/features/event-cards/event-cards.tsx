@@ -2,11 +2,14 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 import EventCard from '../../components/event-card/event-card'
+import Popup from '../../components/popup/popup'
+import Text from '../../components/text/text'
 import Title from '../../components/title/title'
 import { Theme } from '../../styles/theme'
 import { TEvent } from '../../types/types'
-import { titleVariant } from '../../utils/consts'
+import { textVariant, titleVariant } from '../../utils/consts'
 import { device } from '../../utils/utils'
+import StaticContent from '../static-content/static-content'
 
 const Wrapper = styled.div`
     display: flex;
@@ -40,6 +43,12 @@ interface IEventCardsProps {
 }
 
 const EventCards: React.FC<IEventCardsProps> = ({ w, title, count, list }) => {
+    const [isVisiblePopup, setIsVisiblePopup] = React.useState(false)
+    const [selectedItem, setSelectedItem] = React.useState({} as TEvent)
+    const handler = React.useCallback((item: TEvent) => {
+        setIsVisiblePopup(true)
+        setSelectedItem(item)
+    }, [])
     return (
         <Wrapper>
             <ActiveEvents>
@@ -48,10 +57,22 @@ const EventCards: React.FC<IEventCardsProps> = ({ w, title, count, list }) => {
             </ActiveEvents>
             <Cards w={w}>
                 {list.map((item: TEvent, index: number) => (
-                    <EventCard key={index} item={item} />
+                    <EventCard key={index} item={item} handler={handler} />
                 ))}
-                <EventCard empty w="205px" item={{} as TEvent} />
+                <EventCard empty w="205px" item={{} as TEvent} handler={handler} />
             </Cards>
+
+            <Popup isVisible={isVisiblePopup} setIsVisible={setIsVisiblePopup}>
+                <Title variant={titleVariant.H4}>
+                    {selectedItem.title}
+                </Title>
+                <Text variant={textVariant.T1}>
+                    {selectedItem.description}
+                </Text>
+                <Text variant={textVariant.T2}>
+                    <StaticContent content={[{ text: selectedItem.text }]} />
+                </Text>
+            </Popup>
         </Wrapper>
     )
 }

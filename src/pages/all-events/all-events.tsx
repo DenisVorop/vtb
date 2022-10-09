@@ -3,7 +3,9 @@ import styled from 'styled-components/macro'
 
 import Button from '../../components/button/button'
 import EventCard from '../../components/event-card/event-card'
+import Popup from '../../components/popup/popup'
 import Title from '../../components/title/title'
+import StaticContent from '../../features/static-content/static-content'
 import { useAppSelector } from '../../hooks/redux'
 
 import { useGetAllActiveEventsQuery, useGetAllInactiveEventsQuery, useSetUserToEventMutation } from '../../services/events/events'
@@ -30,8 +32,11 @@ const AllEvents: React.FC<IAllEventsProps> = () => {
     const { data: activeEvents } = useGetAllActiveEventsQuery(null)
     const { data: inactiveEvents } = useGetAllInactiveEventsQuery(null)
     const [setUserToEvent] = useSetUserToEventMutation()
+    const [isVisiblePopup, setIsVisiblePopup] = React.useState(false)
+    const [selectedItem, setSelectedItem] = React.useState({} as TEvent)
 
-    const setMember = React.useCallback((event_id: string) => {
+    const setMember = React.useCallback((event_id: string, e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
         setUserToEvent({ id_event: event_id, id_user: user.user_id })
     }, [])
 
@@ -42,16 +47,21 @@ const AllEvents: React.FC<IAllEventsProps> = () => {
         return inactiveEvents?.filter(item => item.TYPE?.length === 0)
     }, [inactiveEvents])
 
+    const handler = React.useCallback((item: TEvent) => {
+        setIsVisiblePopup(true)
+        setSelectedItem(item)
+    }, [])
+
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>Все ивенты</Title>
             <Cards>
                 {filteredActiveEvents?.map((item: TEvent, index: number) => {
                     return (
-                        <EventCard key={index} item={item}>
+                        <EventCard key={index} item={item} handler={handler}>
                             <Button
                                 variant={buttonVariant.PRIMARY}
-                                onClick={() => setMember(item._id!)}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => setMember(item._id!, e)}
                             >
                                 Участвовать
                             </Button>
@@ -60,15 +70,24 @@ const AllEvents: React.FC<IAllEventsProps> = () => {
                 })}
                 {filteredInctiveEvents?.map((item: TEvent, index: number) => {
                     return (
-                        <EventCard disabled key={index} item={item}>
+                        <EventCard disabled key={index} item={item} handler={handler}>
                             <Button disabled variant={buttonVariant.PRIMARY}>Завершено</Button>
                         </EventCard>
                     )
                 })}
-                <EventCard disabled>
-                    <Button disabled variant={buttonVariant.PRIMARY}>Завершено</Button>
-                </EventCard>
             </Cards>
+
+            <Popup isVisible={isVisiblePopup} setIsVisible={setIsVisiblePopup}>
+            <div>
+                    {selectedItem.title}
+                </div>
+                <div>
+                    {selectedItem.description}
+                </div>
+                <div>
+                    <StaticContent content={[{ text: selectedItem.text }]} />
+                </div>
+            </Popup>
         </Wrapper>
     )
 }

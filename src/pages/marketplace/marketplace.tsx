@@ -3,7 +3,9 @@ import styled from 'styled-components/macro'
 
 import Button from '../../components/button/button'
 import EventCard from '../../components/event-card/event-card'
+import Popup from '../../components/popup/popup'
 import Title from '../../components/title/title'
+import StaticContent from '../../features/static-content/static-content'
 
 import { useGetAllActiveEventsQuery, useGetAllInactiveEventsQuery } from '../../services/events/events'
 import { useGetAllMarketQuery } from '../../services/market/market'
@@ -27,14 +29,19 @@ interface IMarketplaceProps { }
 
 const Marketplace: React.FC<IMarketplaceProps> = () => {
     const { data: allMarket } = useGetAllMarketQuery({ 'TYPE': ['market_item'] })
-    console.log(allMarket)
+    const [isVisiblePopup, setIsVisiblePopup] = React.useState(false)
+    const [selectedItem, setSelectedItem] = React.useState({} as TEvent)
+    const handler = React.useCallback((item: TEvent) => {
+        setIsVisiblePopup(true)
+        setSelectedItem(item)
+    }, [])
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>Маркетплейс</Title>
             <Cards>
-                {allMarket?.map((item: any) => {
+                {allMarket?.map((item: TEvent) => {
                     return (
-                        <EventCard item={item}>
+                        <EventCard item={item} handler={handler}>
                             <Button
                                 variant={buttonVariant.PRIMARY}
                             >
@@ -43,17 +50,22 @@ const Marketplace: React.FC<IMarketplaceProps> = () => {
                         </EventCard>
                     )
                 })}
-                {/* {allMarket?.map(() => {
-                    return (
-                        <EventCard disabled>
-                            <Button variant={buttonVariant.PRIMARY}>Закончилось</Button>
-                        </EventCard>
-                    )
-                })} */}
-                <EventCard disabled>
+                <EventCard disabled handler={handler}>
                     <Button variant={buttonVariant.PRIMARY}>Закончилось</Button>
                 </EventCard>
             </Cards>
+
+            <Popup isVisible={isVisiblePopup} setIsVisible={setIsVisiblePopup}>
+                <div>
+                    {selectedItem.title}
+                </div>
+                <div>
+                    {selectedItem.description}
+                </div>
+                <div>
+                    <StaticContent content={[{ text: selectedItem.text }]} />
+                </div>
+            </Popup>
         </Wrapper>
     )
 }

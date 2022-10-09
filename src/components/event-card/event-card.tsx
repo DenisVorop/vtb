@@ -98,21 +98,23 @@ interface IEventCardProps {
   children?: React.ReactNode
   item?: TEvent
   disabled?: boolean
+  handler: (item: TEvent)=>void
 }
 
-const EventCard: React.FC<IEventCardProps> = ({ empty, w, children, item, disabled }) => {
+const EventCard: React.FC<IEventCardProps> = ({ empty, w, children, item, disabled, handler }) => {
   const ref = React.useRef(null)
   const isHovering = useHover(ref)
   const navigate = useNavigate()
 
   const isAdmin = React.useMemo(() => item?.creator?.role === 'admin', [item])
 
-  const handleNavigate = React.useCallback(() => {
+  const handleNavigate = React.useCallback((item: TEvent) => {
     empty && navigate(path.ALL_EVENTS)
+    !empty && handler(item)
   }, [empty])
 
   return (
-    <Wrapper isEmpty={empty} ref={ref} w={w} disabled={disabled} onClick={handleNavigate}>
+    <Wrapper isEmpty={empty} ref={ref} w={w} disabled={disabled} onClick={() => handleNavigate(item!)}>
       {empty
         ? <EmptyCard w={w} isHover={isHovering}>ИВЕНТ</EmptyCard>
         : <>

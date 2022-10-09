@@ -68,6 +68,10 @@ const Dashboard: React.FC<IDashboardProps> = () => {
     const { user } = useAppSelector(state => state.base)
     const { data: balance } = useGetUserBalanceQuery(user.user_id)
     const { data: events } = useGetAllEventsQuery(null)
+
+    const filteredEvents = React.useMemo(() => {
+        return events?.filter(item => item.TYPE?.length === 0)
+    }, [events])
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>{user.name}, time to adventures!</Title>
@@ -85,8 +89,8 @@ const Dashboard: React.FC<IDashboardProps> = () => {
                 <Row>
                     <EventCards
                         title="Активных ивентов"
-                        count={events?.length || 0}
-                        list={events || []}
+                        count={filteredEvents?.length || 0}
+                        list={filteredEvents || []}
                     />
                     <Reverse>
                         <OperationsTable />

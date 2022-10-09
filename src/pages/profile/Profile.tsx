@@ -18,9 +18,10 @@ import InputWithLabel from '../../components/input-with-label/input-with-label'
 
 import { useAppSelector } from '../../hooks/redux'
 import { useGetUserBalanceQuery, useGetUserQuery } from '../../services/user/user'
-import { useGetUserTransactionsQuery } from '../../services/transactions/transactions'
+import { useGetUserTransactionsQuery, useSendCoinMutation } from '../../services/transactions/transactions'
 import { TUserBalance } from '../../types/types'
 import { useGetActiveEventsFromUserQuery, useGetInactiveEventsFromUserQuery } from '../../services/events/events'
+import { useNotification } from '../../hooks/use-notify'
 
 
 const Wrapper = styled.div`
@@ -54,7 +55,7 @@ interface IProfileProps { }
 
 const Profile: React.FC<IProfileProps> = () => {
     const { pathname } = useLocation()
-
+    const { notify } = useNotification()
     const id = React.useMemo(() => +pathname.split('/profile/')?.[1], [pathname])
 
     const { user } = useAppSelector(state => state.base)
@@ -63,17 +64,38 @@ const Profile: React.FC<IProfileProps> = () => {
     const { data: balance } = useGetUserBalanceQuery(id ? id : user.user_id)
     const { data: inactiveEventsFromUser } = useGetInactiveEventsFromUserQuery(id ? id : user.user_id)
     const { data: activeEventsFromUser } = useGetActiveEventsFromUserQuery(id ? id : user.user_id)
+    const [createTransaction, { isSuccess }] = useSendCoinMutation()
 
     const [isVisiblePopup, setIsVisiblePopup] = React.useState<boolean>(false)
     const [createTransferFields, setCreateTransferFields] = React.useState<{
-        phone: string
+        userIdTo: string
         amount: string
-    }>({ phone: '', amount: '' })
+    }>({ userIdTo: '', amount: '' })
     const [confirmField, setConfirmField] = React.useState<string>('')
 
     const handleConfirm = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setConfirmField(e.target.value)
     }, [])
+
+    const handleCreateTransaction = React.useCallback(() => {
+        createTransaction({
+            id_user_from: user.user_id,
+            id_user_to: id ? id : +createTransferFields.userIdTo,
+            amount: +createTransferFields.amount,
+        })
+    }, [createTransferFields, user, id])
+
+    React.useEffect(() => {
+        if (isSuccess) {
+            notify({
+                type: 'success',
+                content: () => 'Перевод успешно осуществлен!',
+            })
+        }
+        setConfirmField('')
+        setCreateTransferFields({ userIdTo: '', amount: '' })
+        setIsVisiblePopup(false)
+    }, [isSuccess])
 
     const contacts = React.useMemo(() => {
         if (userInfo?.user_id) {
@@ -135,10 +157,10 @@ const Profile: React.FC<IProfileProps> = () => {
             <Popup isVisible={isVisiblePopup} setIsVisible={setIsVisiblePopup}>
                 <Title empty variant={titleVariant.H4}>Перечисление благодарности</Title>
                 <InputWithLabel
-                    onChangeHandler={e => setCreateTransferFields({ ...createTransferFields, phone: e.target.value })}
-                    value={createTransferFields.phone}
-                    placeholder="+7 (923) 872-89-32"
-                    label="Номер телефона"
+                    onChangeHandler={e => setCreateTransferFields({ ...createTransferFields, userIdTo: e.target.value })}
+                    value={id ? id : createTransferFields.userIdTo}
+                    placeholder="23"
+                    label={id ? 'ID пользователя введен' : 'Введите ID пользователя'}
                 />
                 <InputWithLabel
                     onChangeHandler={e => setCreateTransferFields({ ...createTransferFields, amount: e.target.value })}
@@ -153,7 +175,13 @@ const Profile: React.FC<IProfileProps> = () => {
                     placeholder="ХОЧУ ПЕРЕВЕСТИ"
                     label="Для подтверждения платежа введите в поле ХОЧУ ПЕРЕВЕСТИ"
                 />
-                <Button variant={buttonVariant.PRIMARY} disabled={confirmField !== 'ХОЧУ ПЕРЕВЕСТИ'}>Перевести</Button>
+                <Button
+                    variant={buttonVariant.PRIMARY}
+                    disabled={confirmField !== 'ХОЧУ ПЕРЕВЕСТИ'}
+                    onClick={handleCreateTransaction}
+                >
+                    Перевести
+                </Button>
             </Popup>
         </React.Fragment>
     )

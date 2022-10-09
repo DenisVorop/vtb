@@ -72,12 +72,12 @@ Toast.displayName = 'Toast'
 
 const ToastList = styled.ul`
     list-style: none;
-    padding: 0;
+    padding: 16px;
     position: fixed;
     bottom: 0;
     z-index: 99999999999;
-    left: 10%;
-    transform: translate(-50%);
+    right: 0%;
+    transform: translate(0%);
     li {
         margin: 0;
         padding-bottom: 8px;
