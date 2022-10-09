@@ -72,12 +72,22 @@ const Dashboard: React.FC<IDashboardProps> = () => {
     const filteredEvents = React.useMemo(() => {
         return events?.filter(item => item.TYPE?.length === 0)
     }, [events])
+
     return (
         <Wrapper>
             <Title variant={titleVariant.H4}>{user.name}, time to adventures!</Title>
             <Content>
                 <Row>
-                    <Balance balance={balance ? balance : {} as TUserBalance} />
+                    <Balance balance={
+                        {
+                            balance: {
+                                maticAmount: user.mongo_wallets.balance.coins,
+                                coinsAmount: user.mongo_wallets.balance.rub,
+                            },
+                            balance_nft: user.mongo_wallets.balance.nfts,
+                        }
+                    }
+                    />
                     <Level />
                     <Desktop>
                         <Nft />

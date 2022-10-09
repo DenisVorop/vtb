@@ -132,7 +132,13 @@ const Profile: React.FC<IProfileProps> = () => {
                                 Отправить благодарность
                             </Button>
                         </User>
-                        <BalanceCard isRow balance={balance ? balance : {} as TUserBalance} />
+                        <BalanceCard isRow balance={{
+                            balance: {
+                                maticAmount: user.mongo_wallets.balance.coins,
+                                coinsAmount: user.mongo_wallets.balance.rub,
+                            },
+                            balance_nft: user.mongo_wallets.balance.nfts,
+                        }} />
                         <Contacts contacts={contacts} />
                     </Row>
                     <Row>

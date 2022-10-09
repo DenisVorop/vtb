@@ -15,6 +15,9 @@ export type TUser = {
     role: string[]
     department: TDepartment
     job_title: string
+
+
+    mongo_wallets?: any
 }
 
 export type TContacts = {

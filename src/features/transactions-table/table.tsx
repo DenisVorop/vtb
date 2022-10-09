@@ -43,7 +43,7 @@ const AddAction = styled.div`
 
 
 interface ITableProps {
-    list: TUserTransaction[]
+    list: TUserTransaction[] | any
 }
 
 const Table: React.FC<ITableProps> = ({ list }) => {
@@ -61,16 +61,16 @@ const Table: React.FC<ITableProps> = ({ list }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {list.map((item: TUserTransaction, index: number) => (
+                        {list.map((item: any, index: number) => (
                             <tr key={index}>
                                 <td><AddAction><TablePlus /></AddAction></td>
-                                <td>{item.user_from?.name}</td>
-                                <td>{item.user_from?.department.name}</td>
-                                <td>{item.user_from?.job_title}</td>
-                                <td>{item.date}</td>
-                                <td>{item.timestamp}</td>
-                                <td>{item.value_matic}</td>
-                                <td>{item.error ? 'Выполнено' : 'Ошибка'}</td>
+                                <td>{item?.users?.from?.name}</td>
+                                <td>{item?.users?.from?.department.name}</td>
+                                <td>{item?.users?.from?.job_title}</td>
+                                <td>{new Date(item?.info?.timestamp).toLocaleString()}</td>
+                                <td>Перевод</td>
+                                <td>{item?.info?.amount}</td>
+                                <td>Выполнено</td>
                             </tr>
                         ))}
                     </tbody>

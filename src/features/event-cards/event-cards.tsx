@@ -44,7 +44,7 @@ interface IEventCardsProps {
 
 const EventCards: React.FC<IEventCardsProps> = ({ w, title, count, list }) => {
     const [isVisiblePopup, setIsVisiblePopup] = React.useState(false)
-    const [selectedItem, setSelectedItem] = React.useState({} as TEvent)
+    const [selectedItem, setSelectedItem] = React.useState({title: '', description: '', text: ''} as TEvent)
     const handler = React.useCallback((item: TEvent) => {
         setIsVisiblePopup(true)
         setSelectedItem(item)
@@ -70,7 +70,7 @@ const EventCards: React.FC<IEventCardsProps> = ({ w, title, count, list }) => {
                     {selectedItem.description}
                 </Text>
                 <Text variant={textVariant.T2}>
-                    <StaticContent content={[{ text: selectedItem.text }]} />
+                    <StaticContent content={[{ text: selectedItem.text || '' }]} />
                 </Text>
             </Popup>
         </Wrapper>

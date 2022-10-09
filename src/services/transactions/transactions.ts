@@ -15,7 +15,8 @@ export const transactionsApi = createApi({
         getUserTransactions: build.query<TUserTransaction[], number>({
             query(id: number) {
                 return {
-                    url: `/api/history/${id}`,
+                    // url: `/api/history/${id}`,
+                    url: `/api/mongo_coin/history_by_id_user_with_fullinfo/${id}`,
                     method: 'GET',
                 }
             },

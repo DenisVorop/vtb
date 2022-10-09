@@ -51,11 +51,11 @@ const BalanceCard: React.FC<IBalanceCardProps> = ({ isRow, balance }) => {
             <Content isRow={isRow}>
                 <Balance>
                     <Coin w="32px" h="32px" />
-                    <Title color={Theme.color.bg} variant={titleVariant.H3}>{rounding_format(balance.balance?.maticAmount, 4, '.', '')}</Title>
+                    <Title color={Theme.color.bg} variant={titleVariant.H4}>{rounding_format(balance.balance?.maticAmount, 2, '.', '')}</Title>
                 </Balance>
                 <Balance>
                     <NFT w="32px" h="32px" />
-                    <Title color={Theme.color.bg} variant={titleVariant.H3}>{balance.balance_nft?.length}</Title>
+                    <Title color={Theme.color.bg} variant={titleVariant.H4}>{balance.balance_nft?.length}</Title>
                 </Balance>
             </Content>
         </Wrapper>

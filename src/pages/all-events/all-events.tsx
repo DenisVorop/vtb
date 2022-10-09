@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import Button from '../../components/button/button'
 import EventCard from '../../components/event-card/event-card'
 import Popup from '../../components/popup/popup'
+import Text from '../../components/text/text'
 import Title from '../../components/title/title'
 import StaticContent from '../../features/static-content/static-content'
 import { useAppSelector } from '../../hooks/redux'
@@ -11,7 +12,7 @@ import { useAppSelector } from '../../hooks/redux'
 import { useGetAllActiveEventsQuery, useGetAllInactiveEventsQuery, useSetUserToEventMutation } from '../../services/events/events'
 import { TEvent } from '../../types/types'
 
-import { buttonVariant, titleVariant } from '../../utils/consts'
+import { buttonVariant, textVariant, titleVariant } from '../../utils/consts'
 
 const Wrapper = styled.div`
     display: flex;
@@ -33,7 +34,7 @@ const AllEvents: React.FC<IAllEventsProps> = () => {
     const { data: inactiveEvents } = useGetAllInactiveEventsQuery(null)
     const [setUserToEvent] = useSetUserToEventMutation()
     const [isVisiblePopup, setIsVisiblePopup] = React.useState(false)
-    const [selectedItem, setSelectedItem] = React.useState({} as TEvent)
+    const [selectedItem, setSelectedItem] = React.useState({ title: '', description: '', text: '' } as TEvent)
 
     const setMember = React.useCallback((event_id: string, e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
@@ -78,15 +79,15 @@ const AllEvents: React.FC<IAllEventsProps> = () => {
             </Cards>
 
             <Popup isVisible={isVisiblePopup} setIsVisible={setIsVisiblePopup}>
-            <div>
+                <Title variant={titleVariant.H4}>
                     {selectedItem.title}
-                </div>
-                <div>
+                </Title>
+                <Text variant={textVariant.T1}>
                     {selectedItem.description}
-                </div>
-                <div>
-                    <StaticContent content={[{ text: selectedItem.text }]} />
-                </div>
+                </Text>
+                <Text variant={textVariant.T2}>
+                    <StaticContent content={[{ text: selectedItem.text || '' }]} />
+                </Text>
             </Popup>
         </Wrapper>
     )
